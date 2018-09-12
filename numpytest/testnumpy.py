@@ -2,7 +2,6 @@
 import numpy
 
 
-
 def replace_mean(t):
     for i in range(t.shape[1]):
         n = t[:, i]
@@ -11,6 +10,7 @@ def replace_mean(t):
             not_nan = n[n == n]
             n[numpy.isnan(n)] = not_nan.mean()
     return t
+
 
 arr = numpy.arange(24)
 arr = arr.reshape(4, 6)
