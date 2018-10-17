@@ -1,4 +1,5 @@
 # coding=utf-8
+import numpy
 import pandas
 from sklearn.datasets import load_iris, fetch_20newsgroups, load_boston
 from sklearn.ensemble import RandomForestClassifier
@@ -34,13 +35,13 @@ def iris():
     # print("预测值是:", knn.predict(test_f))
     # print("准确率是:", knn.score(test_f, test_t))
     knn = KNeighborsClassifier()
-    params={"n_neighbors":[3,5,7,10,15]}
-    gc = GridSearchCV(knn, param_grid=params,cv=10)
-    gc.fit(train_f,train_t)
-    print("准确率是:",gc.score(test_f,test_t))
-    print("交叉验证最好的结果:",gc.best_score_)
-    print("最好的模型:",gc.best_estimator_)
-    print("每个超参数每次交叉验证的结果:",gc.cv_results_)
+    params = {"n_neighbors": [3, 5, 7, 10, 15]}
+    gc = GridSearchCV(knn, param_grid=params, cv=10)
+    gc.fit(train_f, train_t)
+    print("准确率是:", gc.score(test_f, test_t))
+    print("交叉验证最好的结果:", gc.best_score_)
+    print("最好的模型:", gc.best_estimator_)
+    print("每个超参数每次交叉验证的结果:", gc.cv_results_)
     return None
 
 
@@ -210,5 +211,21 @@ def decision():
     return None
 
 
+def londondata():
+    """
+    伦敦数据科学
+    :return:None
+    """
+    test_data = pandas.read_csv("./test.csv")
+    train_data = pandas.read_csv("./train.csv")
+    trainLabels = pandas.read_csv("./trainLabels.csv")
+
+    knn = KNeighborsClassifier(n_neighbors=5)
+    knn.fit(train_data, trainLabels)
+    test_t = knn.predict(test_data)
+    print("结果是:", test_t)
+    return None
+
+
 if __name__ == "__main__":
-    iris()
+    londondata()
